@@ -92,6 +92,14 @@ pub enum DiscoveryError {
     /// Reactor contract interaction failed.
     #[error("reactor error: {0}")]
     ReactorError(String),
+
+    /// Order already exists in the order book.
+    #[error("order already exists: {0}")]
+    OrderAlreadyExists(String),
+
+    /// Invalid status transition attempted.
+    #[error("invalid transition from {from} to {to}")]
+    InvalidTransition { from: String, to: String },
 }
 
 /// Errors from the pricing engine.
