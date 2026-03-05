@@ -1,0 +1,25 @@
+[package]
+name = "phantom-api"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+phantom-common.workspace = true
+phantom-discovery.workspace = true
+phantom-pricing.workspace = true
+phantom-strategy.workspace = true
+phantom-execution.workspace = true
+phantom-inventory.workspace = true
+phantom-metrics.workspace = true
+tokio.workspace = true
+axum.workspace = true
+tower.workspace = true
+tower-http.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

@@ -1,0 +1,20 @@
+[package]
+name = "phantom-chain"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+phantom-common.workspace = true
+tokio.workspace = true
+alloy.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+async-trait.workspace = true
+futures.workspace = true
+tokio-stream.workspace = true
+dashmap.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

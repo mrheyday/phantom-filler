@@ -1,0 +1,101 @@
+[workspace]
+members = [
+    "crates/phantom-common",
+    "crates/phantom-chain",
+    "crates/phantom-discovery",
+    "crates/phantom-pricing",
+    "crates/phantom-strategy",
+    "crates/phantom-execution",
+    "crates/phantom-inventory",
+    "crates/phantom-settlement",
+    "crates/phantom-metrics",
+    "crates/phantom-api",
+    "crates/phantom-filler",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/0xfandom/phantom-filler"
+
+[workspace.dependencies]
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Error handling
+thiserror = "2"
+anyhow = "1"
+
+# EVM interaction
+alloy = { version = "1", features = [
+    "full",
+    "node-bindings",
+] }
+
+# Database
+sqlx = { version = "0.8", features = [
+    "runtime-tokio",
+    "tls-rustls",
+    "postgres",
+    "chrono",
+    "uuid",
+] }
+
+# Cache
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
+deadpool-redis = "0.18"
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Metrics
+metrics = "0.24"
+metrics-exporter-prometheus = "0.16"
+
+# Web framework
+axum = { version = "0.8", features = ["ws"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+
+# Async utilities
+async-trait = "0.1"
+futures = "0.3"
+tokio-stream = "0.1"
+
+# Concurrency
+dashmap = "6"
+parking_lot = "0.12"
+
+# Time and identifiers
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+hex = "0.4"
+
+# Configuration
+toml = "0.8"
+
+# HTTP client
+reqwest = { version = "0.12", features = ["json"] }
+
+# Workspace crates
+phantom-common = { path = "crates/phantom-common" }
+phantom-chain = { path = "crates/phantom-chain" }
+phantom-discovery = { path = "crates/phantom-discovery" }
+phantom-pricing = { path = "crates/phantom-pricing" }
+phantom-strategy = { path = "crates/phantom-strategy" }
+phantom-execution = { path = "crates/phantom-execution" }
+phantom-inventory = { path = "crates/phantom-inventory" }
+phantom-settlement = { path = "crates/phantom-settlement" }
+phantom-metrics = { path = "crates/phantom-metrics" }
+phantom-api = { path = "crates/phantom-api" }
+
+# Dev dependencies
+proptest = "1"
+criterion = { version = "0.5", features = ["html_reports"] }

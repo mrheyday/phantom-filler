@@ -1,0 +1,17 @@
+[package]
+name = "phantom-strategy"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+phantom-common.workspace = true
+phantom-pricing.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

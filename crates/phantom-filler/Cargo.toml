@@ -1,0 +1,25 @@
+[package]
+name = "phantom-filler"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "phantom-filler"
+path = "src/main.rs"
+
+[dependencies]
+phantom-common.workspace = true
+phantom-chain.workspace = true
+phantom-discovery.workspace = true
+phantom-pricing.workspace = true
+phantom-strategy.workspace = true
+phantom-execution.workspace = true
+phantom-inventory.workspace = true
+phantom-settlement.workspace = true
+phantom-metrics.workspace = true
+phantom-api.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+anyhow.workspace = true
+serde.workspace = true
