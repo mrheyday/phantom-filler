@@ -120,6 +120,10 @@ pub enum PricingError {
     /// Price source is unavailable.
     #[error("price source unavailable: {0}")]
     SourceUnavailable(String),
+
+    /// Gas estimation failed.
+    #[error("gas estimation failed: {0}")]
+    GasEstimationFailed(String),
 }
 
 /// Errors from the strategy engine.
