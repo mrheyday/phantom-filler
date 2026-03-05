@@ -150,11 +150,9 @@ impl PriceAggregator {
                 let base = base.clone();
                 let quote = quote.clone();
                 async move {
-                    let result = tokio::time::timeout(
-                        timeout,
-                        source.get_price(&base, &quote, chain_id),
-                    )
-                    .await;
+                    let result =
+                        tokio::time::timeout(timeout, source.get_price(&base, &quote, chain_id))
+                            .await;
                     (source.name().to_string(), result)
                 }
             })

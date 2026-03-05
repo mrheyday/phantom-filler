@@ -2,6 +2,7 @@
 
 use alloy::primitives::{Address, Bytes, U256};
 use async_trait::async_trait;
+use serde::{Deserialize, Serialize};
 
 use crate::error::{ChainResult, DiscoveryResult, ExecutionResult, PricingResult, StrategyResult};
 use crate::types::{ChainId, DutchAuctionOrder, OrderId, SignedOrder, Token};
@@ -48,6 +49,21 @@ pub trait PriceSource: Send + Sync {
     ) -> PricingResult<U256>;
 }
 
+/// Context provided to strategies during order evaluation.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct EvaluationContext {
+    /// Chain the order is on.
+    pub chain_id: ChainId,
+    /// Current block number.
+    pub block_number: u64,
+    /// Current block timestamp (unix seconds).
+    pub block_timestamp: u64,
+    /// Current base fee in wei.
+    pub base_fee: u128,
+    /// Suggested priority fee in wei.
+    pub priority_fee: u128,
+}
+
 /// Strategy for evaluating whether to fill an order.
 #[async_trait]
 pub trait FillStrategy: Send + Sync {
@@ -58,9 +74,13 @@ pub trait FillStrategy: Send + Sync {
     fn priority(&self) -> u32;
 
     /// Evaluates an order and returns an optional fill decision.
-    /// Returns `Ok(Some(profit_estimate))` if the order should be filled,
+    /// Returns `Ok(Some(decision))` if the order should be filled,
     /// `Ok(None)` if the order should be skipped.
-    async fn evaluate(&self, order: &DutchAuctionOrder) -> StrategyResult<Option<FillDecision>>;
+    async fn evaluate(
+        &self,
+        order: &DutchAuctionOrder,
+        context: &EvaluationContext,
+    ) -> StrategyResult<Option<FillDecision>>;
 }
 
 /// Decision to fill an order, including the expected profit.
