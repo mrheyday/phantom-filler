@@ -5,6 +5,7 @@ edition.workspace = true
 
 [dependencies]
 phantom-common.workspace = true
+phantom-chain.workspace = true
 phantom-pricing.workspace = true
 tokio.workspace = true
 alloy.workspace = true

@@ -3364,6 +3364,7 @@ dependencies = [
  "chrono",
  "dashmap",
  "futures",
+ "phantom-chain",
  "phantom-common",
  "phantom-pricing",
  "proptest",

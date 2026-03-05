@@ -3,3 +3,4 @@
 pub mod arb;
 pub mod pipeline;
 pub mod registry;
+pub mod simulation;
