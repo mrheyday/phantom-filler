@@ -69,6 +69,14 @@ pub enum DiscoveryError {
     #[error("order decode failed: {0}")]
     DecodeFailed(String),
 
+    /// ABI decoding failed.
+    #[error("decoding failed: {reason}")]
+    DecodingFailed { reason: String },
+
+    /// Order validation failed.
+    #[error("validation failed: {reason}")]
+    ValidationFailed { reason: String },
+
     /// Order signature is invalid.
     #[error("invalid order signature: {0}")]
     InvalidSignature(String),

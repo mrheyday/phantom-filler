@@ -122,7 +122,10 @@ async fn block_streamer_detects_new_blocks() {
 
     assert_eq!(notification.chain_id, ChainId::Ethereum);
     // Anvil with block_time=1 starts mining, first notification may be block 0 or 1+.
-    assert!(notification.block_number < 100, "block number should be reasonable");
+    assert!(
+        notification.block_number < 100,
+        "block number should be reasonable"
+    );
     assert_ne!(notification.block_hash, B256::ZERO);
     assert!(notification.timestamp > 0);
 
@@ -300,7 +303,10 @@ async fn full_chain_connector_lifecycle() {
 
     assert_eq!(notification.chain_id, ChainId::Ethereum);
     // Anvil with block_time=1 starts mining, first notification may be block 0 or 1+.
-    assert!(notification.block_number < 100, "block number should be reasonable");
+    assert!(
+        notification.block_number < 100,
+        "block number should be reasonable"
+    );
 
     // 6. Clean shutdown.
     event_sub.stop();
