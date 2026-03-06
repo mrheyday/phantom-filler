@@ -17,6 +17,9 @@ debug
 .env.local
 .env.*.local
 
+# Runtime config (may contain secrets)
+config.toml
+
 # OS
 .DS_Store
 Thumbs.db

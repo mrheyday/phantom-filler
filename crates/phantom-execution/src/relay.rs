@@ -195,7 +195,9 @@ impl FlashbotsRelay {
         let client = reqwest::Client::builder()
             .timeout(timeout)
             .build()
-            .map_err(|e| ExecutionError::RelayFailed(format!("failed to build HTTP client: {e}")))?;
+            .map_err(|e| {
+                ExecutionError::RelayFailed(format!("failed to build HTTP client: {e}"))
+            })?;
 
         info!(
             relay = %config.name,

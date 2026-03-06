@@ -168,17 +168,28 @@ See [`config.example.toml`](config.example.toml) for a complete reference.
 
 The REST API runs on the configured port (default: 8080).
 
+**Health (top-level)**
+
 | Method | Path | Description |
 |--------|------|-------------|
 | `GET` | `/health/live` | Liveness probe |
 | `GET` | `/health/ready` | Readiness probe with component status |
-| `GET` | `/health/report` | Detailed system health report |
-| `GET` | `/status` | System status overview |
-| `GET` | `/risk` | Current risk parameters and exposure |
-| `GET` | `/pnl/summary` | Realized P&L summary |
-| `GET` | `/pnl/daily` | Daily P&L breakdown |
-| `GET` | `/pnl/tokens` | Per-token P&L breakdown |
-| `GET` | `/fills` | Recent fill history |
+| `GET` | `/health` | Detailed system health report |
+
+**API v1 (`/api/v1`)**
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/api/v1/status` | System status overview |
+| `GET` | `/api/v1/risk` | Current risk parameters and exposure |
+| `GET` | `/api/v1/pnl` | Realized P&L summary |
+| `GET` | `/api/v1/pnl/daily` | Daily P&L breakdown |
+| `GET` | `/api/v1/pnl/tokens` | Per-token P&L breakdown |
+| `GET` | `/api/v1/fills` | Recent fill history |
+| `GET` | `/api/v1/fills/{id}` | Get specific fill by ID |
+| `WS` | `/ws` | WebSocket event feed |
+
+**Prometheus metrics** are served on port 9090 (`/metrics`).
 
 ## Testing
 
