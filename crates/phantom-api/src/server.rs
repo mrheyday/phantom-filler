@@ -9,9 +9,14 @@ use tracing::info;
 use crate::config::ApiConfig;
 use crate::handlers;
 use crate::state::AppState;
+use crate::ws;
 
 /// Builds the axum router with all routes and middleware.
 pub fn create_router(state: AppState) -> Router {
+    let ws_state = ws::WsState {
+        event_bus: state.event_bus.clone(),
+    };
+
     let api_routes = Router::new()
         .route("/status", get(handlers::system_status))
         .route("/pnl", get(handlers::pnl_summary))
@@ -25,6 +30,7 @@ pub fn create_router(state: AppState) -> Router {
         .route("/health", get(handlers::health_report))
         .route("/health/live", get(handlers::health_live))
         .route("/health/ready", get(handlers::health_ready))
+        .route("/ws", get(ws::ws_handler).with_state(ws_state.clone()))
         .nest("/api/v1", api_routes)
         .layer(TraceLayer::new_for_http())
         .layer(build_cors_layer(&ApiConfig::default()))
@@ -33,6 +39,10 @@ pub fn create_router(state: AppState) -> Router {
 
 /// Builds the router with a custom configuration for CORS.
 pub fn create_router_with_config(state: AppState, config: &ApiConfig) -> Router {
+    let ws_state = ws::WsState {
+        event_bus: state.event_bus.clone(),
+    };
+
     let api_routes = Router::new()
         .route("/status", get(handlers::system_status))
         .route("/pnl", get(handlers::pnl_summary))
@@ -46,6 +56,7 @@ pub fn create_router_with_config(state: AppState, config: &ApiConfig) -> Router 
         .route("/health", get(handlers::health_report))
         .route("/health/live", get(handlers::health_live))
         .route("/health/ready", get(handlers::health_ready))
+        .route("/ws", get(ws::ws_handler).with_state(ws_state.clone()))
         .nest("/api/v1", api_routes)
         .layer(TraceLayer::new_for_http())
         .layer(build_cors_layer(config))

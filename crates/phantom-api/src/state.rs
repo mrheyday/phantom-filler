@@ -7,6 +7,8 @@ use phantom_inventory::pnl::PnlTracker;
 use phantom_inventory::risk::RiskManager;
 use phantom_metrics::health::HealthRegistry;
 
+use crate::ws::EventBus;
+
 /// Shared state available to all API handlers.
 ///
 /// Cloned into each request handler via axum's `State` extractor.
@@ -21,6 +23,8 @@ pub struct AppState {
     pub balances: Arc<BalanceTracker>,
     /// Risk manager for risk exposure data.
     pub risk: Arc<RiskManager>,
+    /// Event bus for WebSocket broadcasting.
+    pub event_bus: Arc<EventBus>,
 }
 
 impl AppState {
@@ -30,12 +34,14 @@ impl AppState {
         pnl: Arc<PnlTracker>,
         balances: Arc<BalanceTracker>,
         risk: Arc<RiskManager>,
+        event_bus: Arc<EventBus>,
     ) -> Self {
         Self {
             health,
             pnl,
             balances,
             risk,
+            event_bus,
         }
     }
 
@@ -46,6 +52,7 @@ impl AppState {
             pnl: Arc::new(PnlTracker::with_defaults()),
             balances: Arc::new(BalanceTracker::with_defaults()),
             risk: Arc::new(RiskManager::with_defaults()),
+            event_bus: Arc::new(EventBus::with_defaults()),
         }
     }
 }
